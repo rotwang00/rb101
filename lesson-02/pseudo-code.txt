@@ -1,0 +1,34 @@
+Return the sum of two integers
+
+START
+GET first number
+SET to num1
+GET second number
+SET to num2
+SET sum to num1 + num2
+RETURN sum
+END
+
+======================================
+
+Take an array of strings and return a string that is all of those string concatenated together
+
+START
+SET arr to array
+SET answer to nil
+For EACH string in arr
+  Add string to SET
+RETURN answer
+
+=====================================
+
+Take an array of integers and return a new array containing every other element
+
+START
+SET arr to array
+SET counter to 0
+For EACH number in arr
+  IF counter is even
+    Add number to answer
+  Increment counter
+RETURN answer
