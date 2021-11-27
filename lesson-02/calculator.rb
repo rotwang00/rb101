@@ -1,7 +1,10 @@
 require "yaml"
-messages = YAML.load_file("calculator_messages.yml")
+MESSAGES = YAML.load_file("calculator_messages.yml")
 
-def prompt(message)
+LANGUAGE = "es"
+
+def prompt(key)
+  message = MESSAGES[LANGUAGE][key]
   Kernel.puts("=> #{message}")
 end
 
@@ -26,60 +29,60 @@ def operation_to_message(oper)
   end
 end
 
-prompt(messages[:welcome])
+prompt(:welcome)
 
 name = ""
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt(messages[:invalid_name])
+    prompt(:invalid_name)
   else
     break
   end
 end
 
-prompt("#{messages[:greeting]} #{name}")
+prompt(:greeting)
+puts(name)
 
 loop do # main loop
   number1 = ""
   loop do
-    prompt(messages[:first_number])
+    prompt(:first_number)
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt(messages[:invalid_number])
+      prompt(:invalid_number)
     end
   end
 
   number2 = ""
   loop do
-    prompt(messages[:second_number])
+    prompt(:second_number)
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt(messages[:invalid_number])
+      prompt(:invalid_number)
     end
   end
 
   operator = ""
-  operator_prompt = messages[:operand]
   loop do
-    prompt(operator_prompt)
+    prompt(:operand)
     operator = Kernel.gets().chomp()
 
     if valid_operator?(operator)
       break
     else
-      prompt(messages[:invalid_operator])
+      prompt(:invalid_operator)
     end
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  puts("#{operation_to_message(operator)} the two numbers...")
   sleep(1)
 
   result = case operator
@@ -93,11 +96,12 @@ loop do # main loop
              number1.to_f() / number2.to_f()
            end
 
-  prompt("#{messages[:result]} #{result}")
+  prompt(:result)
+  puts(result)
 
-  prompt(messages[:go_again])
+  prompt(:go_again)
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?("y")
 end
 
-prompt(messages[:bye])
+prompt(:bye)
