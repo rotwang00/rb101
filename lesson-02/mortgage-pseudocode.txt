@@ -1,0 +1,48 @@
+Mortgage Calculator
+
+Extras for this assignment
+  Use () with method invocations
+  Use Kernal.puts() and Kernal.gets()
+
+Info to get from user:
+  Loan amount
+  APR
+  Loan duration in years
+
+Info to compute:
+  Monthly interest rate
+  Loan duration in months
+  Monthly payment
+
+Formulas:
+  Loan duration in months = loan duration in years / 12
+  Monthly interest rate = APR / 12
+  Monthly payment = (loan amount * (monthly interest rate
+    / (1 - (1 + monthly interest rate)**(-loan duration in months))))
+
+Variable details
+  loan_amount, in dollars, is a float.
+  apr is a percentage. 5.9% interest is stored as a float, 5.9
+  loan_duration_years and loan_duration_months are integers.
+  loan_duration_total_months is an integer.
+  monthly_interest_rate is a percentage. 5.9% interest is stored as a float, 5.9.
+  monthly_payment, in dollars, is a float
+
+Program flow
+  Clear the screen
+  Get user's name
+    Validate: Is it a valid string?
+  Welcome user by name
+  Ask user for loan_amount
+    Validate: Is it a float that's greater than zero?
+  Ask user for apr
+    Validate: Is it a float that's greater than or equal to 0?
+  Ask user for loan_duration_years
+    Validate: Is it an integer that's greater than zero?
+  Compute loan_duration_months, monthly_interest_rate, and monthly_payment
+  Clear the screen
+  Display all info to user, neatly formatted.
+  Ask if user wants to run another set of numbers.
+    Validate: Is it a sensical answer?
+  Either rerun or terminate.
+  
