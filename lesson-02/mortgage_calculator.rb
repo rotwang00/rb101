@@ -114,10 +114,12 @@ loop do
   system("clear") || system("cls")
 
   prompt(:results)
+  puts "\n"
   prompt(:loan_amount_result, format("%.2f", loan_amount))
   prompt(:monthly_interest_rate_result, format("%.2f", monthly_interest_rate))
   prompt(:loan_duration_months_result, loan_duration_total_months.to_i)
   prompt(:monthly_payment_result, format("%.2f", monthly_payment))
+  puts "\n"
 
   # Ask about going again
   prompt(:go_again)
