@@ -71,7 +71,6 @@ def get_loan_dur_mth_part
   end
 end
 
-
 loan_dur_tot_mon = ""
 mon_int_rate = ""
 mon_pmnt = ""
@@ -88,7 +87,7 @@ def compute(loan_amt, loan_dur_yrs_part, loan_dur_mth_part, apr)
       mon_pmnt
   end
 
-  #Version if APR is positive
+  # Version if APR is positive
   mon_pmnt = (loan_amt * ((mon_int_rate * 0.01) / (1 -
     (1 + (mon_int_rate * 0.01))**(-loan_dur_tot_mon))))
 
@@ -103,16 +102,16 @@ def run_again?
   loop do
     answer = Kernel.gets().chomp()
     answer.downcase!
-    if answer == "y" or answer == "yes"
+    if answer == "y" || answer == "yes"
       return true
-    elsif answer == "n" or answer == "no"
+    elsif answer == "n" || answer == "no"
       return false
     end
     prompt(:go_again_invalid)
   end
 end
 
- def display_results(amount, rate, dur, payment)
+def display_results(amount, rate, dur, payment)
   system("clear") || system("cls")
   prompt(:results)
   puts "\n"
@@ -121,7 +120,7 @@ end
   prompt(:loan_dur_mon_result, dur.to_i)
   prompt(:mon_pmnt_result, format("%.2f", payment))
   puts "\n"
- end
+end
 
 # Get name and greet
 system("clear") || system("cls")
@@ -155,14 +154,14 @@ loop do
   apr = get_apr()
   loan_dur_yrs_part = get_loan_dur_yrs_part()
   loan_dur_mth_part = get_loan_dur_mth_part()
- 
+
   loan_dur_tot_mon, mon_int_rate, mon_pmnt = compute(loan_amt.to_f,
                                                      loan_dur_yrs_part.to_f,
                                                      loan_dur_mth_part.to_f,
                                                      apr.to_f)
 
   display_results(loan_amt, mon_int_rate, loan_dur_tot_mon, mon_pmnt)
-  
+
   break unless run_again?()
 end
 
