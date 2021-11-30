@@ -12,5 +12,6 @@
 :mon_int_rate_result: "The monthly interest rate is %{custom_data}%%"
 :loan_dur_mon_result: "The term of the loan is %{custom_data} months"
 :mon_pmnt_result: "The monthly payment will be $%{custom_data}"
-:go_again: "Do you want to run a different set of numbers? ('y' to run again)"
+:go_again: "Do you want to run a different set of numbers? (y/n)"
+:go_again_invalid: "I'm sorry; I didn't understand that."
 :bye: "Goodbye, %{custom_data}."
