@@ -29,8 +29,7 @@ def get_player_choice
 
     if VALID_CHOICES.include?(choice)
       return choice
-      break
-    elsif CHOICE_ABBREVIATIONS.has_key?(choice.to_sym)
+    elsif CHOICE_ABBREVIATIONS.key?(choice.to_sym)
       return CHOICE_ABBREVIATIONS[choice.to_sym]
     else
       prompt("That's not a valid choice.")
@@ -45,13 +44,26 @@ end
 def display_results(player, computer)
   if win?(player, computer)
     prompt("You won!")
+    # keep_score(player)
   elsif win?(computer, player)
     prompt("Computer won!")
+    # keep_score(computer)
   else
     prompt("It's a tie!")
   end
 end
 
+# def keep_score(round_winner)
+#   score[round_winner.to_sym] += 1
+#   p score
+# end
+
+# score = {
+#   player: 0,
+#   computer: 0
+# }
+
+# Main game loop
 loop do
   player_choice = get_player_choice
   computer_choice = VALID_CHOICES.sample()
