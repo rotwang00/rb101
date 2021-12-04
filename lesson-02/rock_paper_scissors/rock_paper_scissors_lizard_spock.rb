@@ -17,6 +17,11 @@ WINNING_CONDITIONS = {
   Spock: %w(scissors rock)
 }
 
+game_history = {
+  player_wins: 0,
+  computer_wins: 0
+}
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -44,24 +49,23 @@ end
 def display_results(player, computer)
   if win?(player, computer)
     prompt("You won!")
-    # keep_score(player)
+    keep_score("player")
   elsif win?(computer, player)
     prompt("Computer won!")
-    # keep_score(computer)
+    keep_score("computer")
   else
     prompt("It's a tie!")
   end
 end
 
-# def keep_score(round_winner)
-#   score[round_winner.to_sym] += 1
-#   p score
-# end
-
-# score = {
-#   player: 0,
-#   computer: 0
-# }
+def keep_score(winner)
+  # if winner == "player"
+  #   game_history(:player) = game_history(:player) + 1
+  # else
+  #   game_history(:computer) += 1
+  # end
+  p game_history
+end
 
 # Main game loop
 loop do
