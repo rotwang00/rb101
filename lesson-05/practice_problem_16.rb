@@ -1,11 +1,17 @@
-arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+HEX_DIGITS = %w(0 1 2 3 4 5 6 7 8 9 a b c d e f)
+UUID_FORMAT = [8, 4, 4, 4, 12]
 
-new_arr = arr.select do |elem|
-  elem.all? do |_, value_arr|
-    value_arr.all? do |int|
-      int.even?
+def create_UUID()
+  uuid = ""
+  UUID_FORMAT.each do |digits|
+    digits.times do
+      uuid += HEX_DIGITS.sample
+    end
+    if uuid.size < 36
+      uuid += "-"
     end
   end
+  uuid
 end
 
-p new_arr
+puts create_UUID()
