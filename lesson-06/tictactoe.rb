@@ -85,7 +85,7 @@ def someone_won?(brd, scr)
   !!detect_winner(brd, scr)
 end
 
-def detect_winner(brd)
+def detect_winner(brd, scr)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(PLAYER_MARKER) == 3
       scr[:player] += 1
@@ -102,8 +102,10 @@ end
 
 loop do
   board = initialize_board
-  if !defined?(score)
+  if !score
     score = initialize_score
+  else
+    binding.pry
   end
 
   loop do
@@ -113,13 +115,13 @@ loop do
     break if someone_won?(board, score) || board_full?(board)
 
     computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    break if someone_won?(board, score) || board_full?(board)
   end
 
   display_board(board, score)
 
   if someone_won?(board, score)
-    prompt "#{detect_winner(board)} won!"
+    prompt "#{detect_winner(board, score)} won!"
   else
     prompt "It's a tie!"
   end
