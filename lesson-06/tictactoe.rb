@@ -98,11 +98,9 @@ def detect_winner(brd, scr)
   nil
 end
 
-# score = initialize_score
-
 loop do
   board = initialize_board
-  if !score
+  if !defined?(score)
     score = initialize_score
   else
     binding.pry
