@@ -38,9 +38,9 @@ def initialize_board
   new_board
 end
 
-def initialize_score
-  score = { player: 0, computer: 0 }
-end
+# def initialize_score
+#   score = { player: 0, computer: 0 }
+# end
 
 def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
@@ -81,45 +81,48 @@ def board_full?(brd)
   empty_squares(brd).empty?
 end
 
-def someone_won?(brd, scr)
-  !!detect_winner(brd, scr)
+def someone_won?(brd)
+  !!detect_winner(brd)
 end
 
-def detect_winner(brd, scr)
+def detect_winner(brd)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(PLAYER_MARKER) == 3
-      scr[:player] += 1
+      # scr[:player] += 1
       return 'Player'
     elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
-      scr[:computer] += 1
+      # scr[:computer] += 1
       return 'Computer'
     end
   end
   nil
 end
 
+def add_win_to_score(winner, scr)
+  scr[winner.downcase.to_sym] += 1
+end
+
+score = { player: 0, computer: 0 }
+
 loop do
   board = initialize_board
-  if !defined?(score)
-    score = initialize_score
-  else
-    binding.pry
-  end
-
+  
   loop do
     display_board(board, score)
 
     player_places_piece!(board)
-    break if someone_won?(board, score) || board_full?(board)
+    break if someone_won?(board) || board_full?(board)
 
     computer_places_piece!(board)
-    break if someone_won?(board, score) || board_full?(board)
+    break if someone_won?(board) || board_full?(board)
   end
 
   display_board(board, score)
 
-  if someone_won?(board, score)
-    prompt "#{detect_winner(board, score)} won!"
+  if someone_won?(board)
+    winner = detect_winner(board)
+    prompt "#{winner} won!"
+    add_win_to_score(winner, score)
   else
     prompt "It's a tie!"
   end
