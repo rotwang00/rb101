@@ -81,8 +81,23 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd)
+    break if square
+  end
+  if !square
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
+end
+
+def find_at_risk_square(line, brd)
+  if brd.values_at(*line).count(PLAYER_MARKER) == 2
+    brd.select{ |k, v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
 end
 
 def board_full?(brd)
@@ -114,6 +129,14 @@ def check_for_champion?(scr)
   scr.values.include?(WINNING_SCORE)
 end
 
+def display_championship_message(scr)
+  if scr[:player] == WINNING_SCORE
+    prompt("You are the champion, my friend!")
+  else
+    prompt("Your computer overlord is the champion!")
+  end
+end
+
 # Main loop
 loop do
 score = { player: 0, computer: 0 }
@@ -141,13 +164,15 @@ score = { player: 0, computer: 0 }
     else
       prompt "It's a tie!"
     end
+    sleep(2)
+
     if check_for_champion?(score)
       break
     end
-
   end
-  puts "Someone won!"
-  p score
+
+  display_championship_message(score)
+  
   break
   # prompt "Play again? (y or n)"
   # answer = gets.chomp
