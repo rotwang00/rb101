@@ -82,14 +82,40 @@ end
 
 def computer_places_piece!(brd)
   square = nil
+
+  # Check for instant win
   WINNING_LINES.each do |line|
-    square = find_at_risk_square(line, brd)
+    square = find_winning_square(line, brd)
     break if square
   end
+
+  # Check for imminent loss
+  if !square  
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd)
+      break if square
+    end
+  end
+
+  # Check for open middle square
+  if !square && brd[5] == " "
+    square = 5
+  end
+
+  # Otherwise, make random move
   if !square
     square = empty_squares(brd).sample
   end
+
   brd[square] = COMPUTER_MARKER
+end
+
+def find_winning_square(line, brd)
+  if brd.values_at(*line).count(COMPUTER_MARKER) == 2
+    brd.select{ |k, v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
 end
 
 def find_at_risk_square(line, brd)

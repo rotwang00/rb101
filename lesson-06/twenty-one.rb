@@ -1,0 +1,9 @@
+SPADE = "\u2660"
+HEART = "\u2665"
+DIAMOND = "\u2666"
+CLUB = "\u2663"
+BACK = "\u{1f0a0}"
+
+puts SPADE, HEART, DIAMOND, CLUB, BACK
+puts "K#{HEART}"
+puts "A#{SPADE}"
