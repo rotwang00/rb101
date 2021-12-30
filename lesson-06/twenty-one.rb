@@ -103,9 +103,9 @@ loop do
   end
   
   # Computer loop
-  display_table(player_hand, dealer_hand)
-  sleep(1.5)
   loop do
+    display_table(player_hand, dealer_hand)
+    sleep(1.5)
     puts "Dealer hits"
     sleep(1.5)
     display_table(player_hand, dealer_hand)
