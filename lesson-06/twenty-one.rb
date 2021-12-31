@@ -95,10 +95,11 @@ loop do
     choice = get_player_choice
     if choice == "hit"
       player_hand << deck.shift
-      next
+    else
+      puts "You stay with #{get_hand_value(player_hand)}"
+      sleep(1.5)
     end
-    puts "You stay with #{get_hand_value(player_hand)}"
-    sleep(1.5)
+    
     break # Player chose stay
   end
   
@@ -108,12 +109,10 @@ loop do
     sleep(1.5)
     puts "Dealer hits"
     sleep(1.5)
-    display_table(player_hand, dealer_hand)
     if get_hand_value(dealer_hand) < 17
       dealer_hand << deck.shift
-    else
-      break # Dealer stays at 17
     end
+
   end
 
   break
