@@ -18,7 +18,7 @@ end
 
 def get_hand_value(hnd)
   # Remove aces, then replace them at end of hand.
-  # This reordering is local to this method.
+  # The reordering is local to this method.
   aces, others = hnd.partition { |card| card[0] == "A" }
   hnd = others + aces
   
@@ -91,15 +91,14 @@ loop do
   # Player loop
   loop do
     display_table(player_hand, dealer_hand)
-
+    sleep(1.5)
     choice = get_player_choice
     if choice == "hit"
       player_hand << deck.shift
-    else
-      puts "You stay with #{get_hand_value(player_hand)}"
-      sleep(1.5)
+      next
     end
-    
+    puts "You stay with #{get_hand_value(player_hand)}"
+    sleep(1.5)
     break # Player chose stay
   end
   
@@ -112,7 +111,7 @@ loop do
     if get_hand_value(dealer_hand) < 17
       dealer_hand << deck.shift
     end
-
+    
   end
 
   break
