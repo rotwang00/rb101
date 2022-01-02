@@ -8,6 +8,7 @@ RANKS = %w(A 2 3 4 5 6 7 8 9 J Q K)
 FACE_CARDS = %w(J Q K)
 WINNING_SCORE = 21
 
+
 def create_deck
   deck = []
   RANKS.each do |rank|
@@ -22,7 +23,7 @@ end
 def get_hand_value(hnd, show_hole_crd)
   value = 0
   hnd.each_with_index do |card, index|
-    if (index == hnd.size - 1) && !show_hole_crd  # Don't count the dealer's hole card
+    if (index == hnd.size - 1) && !show_hole_crd  # Don't count the dealer's hole card yet
       break
     elsif ('2'..'9').include? card[:rank]         # It's a number card
       value += card[:rank].to_i
@@ -40,16 +41,16 @@ def get_hand_value(hnd, show_hole_crd)
   value
 end
       
-def print_card(crd)
+def display_card(crd)
   print crd[:rank], crd[:suit]
 end
 
-def print_hand(hnd, show_hole_crd)
+def display_hand(hnd, show_hole_crd)
   hnd.each_with_index do |card, index|
     if (index == hnd.size - 1) && !show_hole_crd # Is it the dealer's hole card?
       print CARD_BACK
     else
-      print_card(card)
+      display_card(card)
       print " "
     end
   end
@@ -62,34 +63,53 @@ def display_table(player_hnd, dealer_hnd, show_hole_crd)
   puts "BLACKJACK"
   puts "========="
   print "Dealer has: "
-  print_hand(dealer_hnd, show_hole_crd)
+  display_hand(dealer_hnd, show_hole_crd)
   puts ""
   print "You have: "
-  print_hand(player_hnd, true) # Player never has a hole card
+  display_hand(player_hnd, true) # Player never has a hole card
   puts ""
 end
 
+def get_player_choice
+  loop do
+    puts "Do you want to (h)it or (s)tay?"
+    input = gets.chomp.downcase[0]
+    if input == "h" || input == "hit"
+      return "hit"
+    elsif input == "s" || inpute == "stay"
+      return "stay"
+    else
+      puts "Sorry, I didn't understand that."
+    end
+  end
+end
 
-player_hand = [{:rank=>"5", :suit=>"♥"}, {:rank=>"A", :suit=>"♠"}, {:rank=>"A", :suit=>"♠"}]
-dealer_hand = [{:rank=>"5", :suit=>"♥"}, {:rank=>"A", :suit=>"♠"}, {:rank=>"A", :suit=>"♠"}]
+def deal_cards(dck)
+  player_hnd = []
+  2.times { player_hnd << dck.shift }
+  
+  dealer_hnd = []
+  2.times { dealer_hnd << dck.shift }
+
+end
+
 
 display_table(player_hand, dealer_hand, false)
 
+# Main loop
+loop do
+  deck = create_deck
+  show_hole_card = false
+  player_hand, dealer_hand = deal_cards(deck)
+  display_table(player_hand, dealer_hand, show_hole_card)
+
+  player_turn(player_hand, dealer_hand, deck, show_hole_card)
+
+  dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
+
+end
 
 
-# def get_player_choice
-#   loop do
-#     puts "Do you want to (h)it or (s)tay?"
-#     input = gets.chomp.downcase[0]
-#     if input == "h"
-#       return "hit"
-#     elsif input == "s"
-#       return "stay"
-#     else
-#       puts "Sorry, I didn't understand that."
-#     end
-#   end
-# end
 
 # # Main loop
 # loop do

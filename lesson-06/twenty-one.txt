@@ -1,0 +1,28 @@
+Main loop
+=========
+Create deck
+Deal cards
+Player turn
+Dealer turn
+Play again?
+
+
+Player turn
+===========
+Loop:
+  Check for win or bust
+  Do you want to hit or stay?
+  Hit or stay
+
+
+Dealer turn
+===========
+Show hole card
+Loop:
+  Check for win or bust
+  Hit if under 17
+  Stay if 17 or over
+
+End of hand
+===========
+Determine outcome
