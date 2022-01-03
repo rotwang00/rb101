@@ -1,0 +1,56 @@
+Diamonds
+
+Problem
+=======
+Given an odd integer, print a 4-pointed diamond in an n x n grid.
+
+Input
+=====
+An odd integer. No need to verify the input.
+
+Output
+======
+The diamond in the console.
+
+Examples
+========
+diamond(1)
+
+*
+
+diamond(3)
+
+ *
+***
+ *
+
+ diamond(9)
+
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+
+Data structure
+==============
+An array of strings. Each string is a row of the diamond.
+
+Algorithm
+=========
+Number of spaces = abolute value of ('half' - iteration number)
+Number of stars = size - (2 * (half - index).abs)
+
+size = parameter integer
+Create empty array 'shape'
+Find half of size, rounded down
+Start loop with index for 'size' number of iterations
+  string += number of spaces * " "
+  string += number of stars * "*"
+  shape << string
+
+print shape

@@ -26,9 +26,32 @@ def toggle_lights(num)
   return lights_on
 end
 
-def output_in_english(lights, n)
+def output_in_english(light, n)
+  dark = []
+  (1..n).each_with_index do |element, index|
+    if !light.include? (index + 1)
+      dark << (index + 1)
+    end
+  end
   
+  dark_size = dark.size
+  print "Lights "
+  dark.each_with_index do |element, index|
+    if index == dark_size - 1
+      print "and #{element} are now off.\n"
+    else
+      print "#{element}, "
+    end
+  end
+
+  light_size = light.size
+  light.each_with_index do |element, index|
+    if index == light_size - 1
+      print "and #{element} are on.\n"
+    else
+      print "#{element}, "
+    end
+  end
 end
 
-
-p toggle_lights(10)
+toggle_lights(10)
