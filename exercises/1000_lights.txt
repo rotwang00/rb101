@@ -1,0 +1,62 @@
+1000 Lights PEDAC
+
+Problem
+=======
+There is a bank of toggle switches, n of them.
+Each is connected to one light.
+All the switches begin in the off position.
+You will make n passes through them.
+The first pass, you toggle every switch from off to on.
+The second pass, you ignore switch 1, toggle switch 2, ignore switch 3, toggle switch 4, and so on.
+The third pass, starting with switch 3, you toggle every third switch.
+Continue until you have made n passes.
+Return an array that identifies which lights are on after n passes.
+
+Input
+=====
+An integer indicating the number of switches and lights.
+
+Output
+======
+An array containing the numbers of the lights that are on after all the passes.
+
+Examples / Test Cases
+=====================
+If n = 5
+Round 1: Every light is now on
+Round 2: Lights 2 and 4 are toggled. 2, 4 are off; 1, 3, 5 are on
+Round 3: 2, 3, 4 are off; 1, 5 are on
+Round 4: 2, 3 are off; 1, 4, 5 are on
+Round 5: 2, 3, 5 are off; 1, 4 are on
+All passes are complete. Since 1 and 4 are on, the return value is [1, 4]
+
+If n = 10, the return value is [1, 4, 9]
+
+If the input isn't a positive integer, return []
+
+Data Structure
+==============
+An array of length n will represent the switches and lights.
+-1 indicates that the switch and light at that position is off.
+1 indicates on.
+The array index and the physical position will be off by 1.
+The return value will be an array that's a list of indexes (corrected for physical position)
+  that contain a 1.
+
+Algorithm
+=========
+Create an array of size n populated by -1.
+step = 1
+i = step
+Begin an outer loop that will run n times.
+  Begin an interior do loop.
+    Start at position i (corrected by -1).
+    Toggle the switch at this position by negating the number (1 becomes -1, -1 becomes 1).
+    i += step
+    If i >= n, break
+  step += 1
+  i = step
+Create an empty return value array.
+Loop through the switch array once again, with index.
+  If that light is on, put that index number (corrected by 1) into the return value array.
+Return the return value array.

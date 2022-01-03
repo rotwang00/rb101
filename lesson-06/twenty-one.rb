@@ -1,3 +1,5 @@
+require 'pry'
+
 CARD_BACK = "\u{1f0a0}"
 SPADES = "\u2660"
 HEARTS = "\u2665"
@@ -7,7 +9,7 @@ SUITS = [SPADES, HEARTS, DIAMONDS, CLUBS]
 RANKS = %w(A 2 3 4 5 6 7 8 9 J Q K)
 FACE_CARDS = %w(J Q K)
 WINNING_SCORE = 21
-
+DEALER_STAY = 17
 
 def create_deck
   deck = []
@@ -70,20 +72,6 @@ def display_table(player_hnd, dealer_hnd, show_hole_crd)
   puts ""
 end
 
-def get_player_choice
-  loop do
-    puts "Do you want to (h)it or (s)tay?"
-    input = gets.chomp.downcase[0]
-    if input == "h" || input == "hit"
-      return "hit"
-    elsif input == "s" || inpute == "stay"
-      return "stay"
-    else
-      puts "Sorry, I didn't understand that."
-    end
-  end
-end
-
 def deal_cards(dck)
   player_hnd = []
   2.times { player_hnd << dck.shift }
@@ -91,21 +79,48 @@ def deal_cards(dck)
   dealer_hnd = []
   2.times { dealer_hnd << dck.shift }
 
+  return player_hnd, dealer_hnd
 end
 
+def player_turn(player_hnd, dealer_hnd, dck, show_hole_crd)
+  loop do
+    display_table(player_hnd, dealer_hnd, show_hole_crd)
+    player_choice = get_player_choice
+    if player_choice == "stay"
+      return player_hnd, dck
+    else
+      player_hnd << dck.shift
+      
+    end
+  end
+end
 
-display_table(player_hand, dealer_hand, false)
+def get_player_choice
+  loop do
+    puts "Do you want to (h)it or (s)tay?"
+    input = gets.chomp.downcase[0]
+    if input == "h" || input == "hit"
+      return "hit"
+    elsif input == "s" || input == "stay"
+      return "stay"
+    else
+      puts "Sorry, I didn't understand that."
+    end
+  end
+end
+
 
 # Main loop
 loop do
   deck = create_deck
-  show_hole_card = false
   player_hand, dealer_hand = deal_cards(deck)
-  display_table(player_hand, dealer_hand, show_hole_card)
+  show_hole_card = false
 
-  player_turn(player_hand, dealer_hand, deck, show_hole_card)
+  # display_table(player_hand, dealer_hand, show_hole_card)
 
-  dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
+  player_hand, deck = player_turn(player_hand, dealer_hand, deck, show_hole_card)
+
+  # dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
 
 end
 
