@@ -42,7 +42,11 @@ def get_hand_value(hnd, show_hole_crd)
   end
   value
 end
-      
+   
+def busted?(hnd)
+  get_hand_value(hnd, true) > 21
+end
+
 def display_card(crd)
   print crd[:rank], crd[:suit]
 end
@@ -90,10 +94,24 @@ def player_turn(player_hnd, dealer_hnd, dck, show_hole_crd)
       return player_hnd, dck
     else
       player_hnd << dck.shift
-      if get_hand_value(player_hnd, false) >= 21
+      if get_hand_value(player_hnd, true) >= 21 # Player doesn't have a hole card
         return player_hnd, dck
       end
     end
+  end
+end
+
+def dealer_turn(player_hnd, dealer_hnd, dck, show_hold_crd)
+  loop do
+    display_table(player_hnd, dealer_hnd, show_hold_crd)
+    sleep(1.5)
+    if get_hand_value(dealer_hnd, show_hold_crd) >= 17
+      return dealer_hnd, dck
+    else
+      puts "Dealer hits"
+      sleep(1.5)
+    end
+    dealer_hnd << dck.shift
   end
 end
 
@@ -111,19 +129,35 @@ def get_player_choice
   end
 end
 
+loop do # Main loop
+  loop do # Hand loop
+    deck = create_deck
+    player_hand, dealer_hand = deal_cards(deck)
+    busted = false
+    show_hole_card = false
+    player_hand, deck = player_turn(player_hand, dealer_hand, deck, show_hole_card)
+    display_table(player_hand, dealer_hand, show_hole_card)
+    if busted?(player_hand)
+      puts "You busted!"
+      busted = true
+    else
+      puts "You stayed with #{get_hand_value(player_hand, true)}"
+    end
+    sleep(1.5)
+    if !busted
+      show_hole_card = true
+      dealer_hand, deck = dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
+      if busted?(dealer_hand)
+        puts "Dealer busted!"
+        busted = true
+      else
+        puts "Dealer stayed with #{get_hand_value(dealer_hand), true)}"
+    end
 
-# Main loop
-loop do
-  deck = create_deck
-  player_hand, dealer_hand = deal_cards(deck)
-  show_hole_card = false
 
-  # display_table(player_hand, dealer_hand, show_hole_card)
-
-  player_hand, deck = player_turn(player_hand, dealer_hand, deck, show_hole_card)
-
-  # dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
-
+  end
+  puts "Thanks for playing."
+  break
 end
 
 
