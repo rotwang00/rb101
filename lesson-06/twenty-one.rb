@@ -90,7 +90,9 @@ def player_turn(player_hnd, dealer_hnd, dck, show_hole_crd)
       return player_hnd, dck
     else
       player_hnd << dck.shift
-      
+      if get_hand_value(player_hnd, false) >= 21
+        return player_hnd, dck
+      end
     end
   end
 end
