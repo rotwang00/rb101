@@ -129,7 +129,25 @@ def get_player_choice
   end
 end
 
+def evaluate_scores(player_hnd, dealer_hnd)
+  player_hand_value = get_hand_value(player_hnd, true)
+  dealer_hand_value = get_hand_value(dealer_hnd, true)
+  if player_hand_value > 21
+    return "dealer"
+  elsif dealer_hand_value > 21
+    return "player"
+  elsif player_hand_value > dealer_hand_value
+    return "player"
+  elsif dealer_hand_value > player_hand_value
+    return "dealer"
+  else # It's a tie
+    return "tie"
+  end
+end
+
 loop do # Main loop
+  score = { player: 0, dealer: 0 }
+
   loop do # Hand loop
     deck = create_deck
     player_hand, dealer_hand = deal_cards(deck)
@@ -144,17 +162,27 @@ loop do # Main loop
       puts "You stayed with #{get_hand_value(player_hand, true)}"
     end
     sleep(1.5)
-    if !busted
+    if !busted # If player didn't bust, dealer takes turn
       show_hole_card = true
       dealer_hand, deck = dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
       if busted?(dealer_hand)
         puts "Dealer busted!"
         busted = true
       else
-        puts "Dealer stayed with #{get_hand_value(dealer_hand), true)}"
+        puts "Dealer stayed with #{get_hand_value(dealer_hand, true)}"
+      end
     end
-
-
+    winner = evaluate_scores(player_hand, dealer_hand)
+    if winner == "player"
+      puts "You won!"
+      score[:player] += 1
+    elsif winner == "dealer"
+      puts "Dealer won!"
+      score[:dealer] += 1
+    else
+      puts "It's a tie!"
+    end
+    break
   end
   puts "Thanks for playing."
   break
