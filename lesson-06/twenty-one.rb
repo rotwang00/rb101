@@ -1,5 +1,3 @@
-require 'pry'
-
 CARD_BACK = "\u{1f0a0}"
 SPADES = "\u2660"
 HEARTS = "\u2665"
@@ -25,9 +23,9 @@ end
 def get_hand_value(hnd, show_hole_crd)
   value = 0
   hnd.each_with_index do |card, index|
-    if (index == hnd.size - 1) && !show_hole_crd  # Don't count the dealer's hole card yet
+    if (index == hnd.size - 1) && !show_hole_crd
       break
-    elsif ('2'..'9').include? card[:rank]         # It's a number card
+    elsif ('2'..'9').cover? card[:rank]         # It's a number card
       value += card[:rank].to_i
     elsif FACE_CARDS.include? card[:rank]         # It's a face card
       value += 10
@@ -35,14 +33,14 @@ def get_hand_value(hnd, show_hole_crd)
       value += 11
     end
   end
-  
+
   # Adjust for aces
   hnd.select { |card| card[:rank] == "A" }.count.times do
     value -= 10 if value > 21
   end
   value
 end
-   
+
 def busted?(hnd)
   get_hand_value(hnd, true) > 21
 end
@@ -79,7 +77,7 @@ end
 def deal_cards(dck)
   player_hnd = []
   2.times { player_hnd << dck.shift }
-  
+
   dealer_hnd = []
   2.times { dealer_hnd << dck.shift }
 
@@ -94,7 +92,7 @@ def player_turn(player_hnd, dealer_hnd, dck, show_hole_crd)
       return player_hnd, dck
     else
       player_hnd << dck.shift
-      if get_hand_value(player_hnd, true) >= 21 # Player doesn't have a hole card
+      if get_hand_value(player_hnd, true) >= 21
         return player_hnd, dck
       end
     end
@@ -167,7 +165,6 @@ loop do # Main loop
       dealer_hand, deck = dealer_turn(player_hand, dealer_hand, deck, show_hole_card)
       if busted?(dealer_hand)
         puts "Dealer busted!"
-        busted = true
       else
         puts "Dealer stayed with #{get_hand_value(dealer_hand, true)}"
       end
@@ -187,44 +184,3 @@ loop do # Main loop
   puts "Thanks for playing."
   break
 end
-
-
-
-# # Main loop
-# loop do
-#   deck = create_deck
-  
-#   player_hand = []
-#   dealer_hand = []
-
-#   2.times { player_hand <<  deck.shift }
-#   1.times { dealer_hand << deck.shift }
-
-#   # Player loop
-#   loop do
-#     display_table(player_hand, dealer_hand)
-#     sleep(1.5)
-#     choice = get_player_choice
-#     if choice == "hit"
-#       player_hand << deck.shift
-#       next
-#     end
-#     puts "You stay with #{get_hand_value(player_hand)}"
-#     sleep(1.5)
-#     break # Player chose stay
-#   end
-  
-#   # Computer loop
-#   loop do
-#     display_table(player_hand, dealer_hand)
-#     sleep(1.5)
-#     puts "Dealer hits"
-#     sleep(1.5)
-#     if get_hand_value(dealer_hand) < 17
-#       dealer_hand << deck.shift
-#     end
-    
-#   end
-
-#   break
-# end
