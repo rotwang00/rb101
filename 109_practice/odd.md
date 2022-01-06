@@ -1,0 +1,1 @@
+Lines 1-3 are a method definition, `is_odd?`, that accepts one parameter, `num`, an Integer object. In line 2, the value of `num % 2` is computed, and the result is compared to `1`. This comparison will result in either `true` or `false`. Since this is the last statement in the method, that `true` or `false` will be the return value of the method.
