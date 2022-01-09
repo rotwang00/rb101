@@ -1,0 +1,3 @@
+Line 5 invokes the method `sum` with the integer parameter `23`. The return value of `sum` is passed to the `puts` method, which outputs that value and returns `nil`.
+
+Lines 1-3 are a method definition for `sum`, which takes one parameter, an integer, which is assigned to the local variable `num`. In line 2, 2 methods are called on `num`. First, `#digits` is invoked, which returns an array consisting of the individual digits of `num` in reverse order. The order of the digits doesn't matter for this exercise. This array is passed to the `#reduce` method, which returns the sum of all the integers in the array. Since this is the last value in the `sum` method, it is the return value.
