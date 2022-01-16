@@ -1,0 +1,1 @@
+After the first three lines, `array1` and `array2` are pointing at different Array objects, although those two arrays are holding identical values. Line 4 moditifies only `array1`. The output of the code, `puts array2`, is a non-upcased array.
