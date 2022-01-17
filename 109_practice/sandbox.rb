@@ -1,7 +1,7 @@
-def increment(x)
-  x += 'b'
+a = 'Bob'
+
+5.times do |x|
+  a = 'Bill'
 end
 
-y = 'a'
-increment(y)
-puts y
+p a
