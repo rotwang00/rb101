@@ -1,0 +1,40 @@
+Now I Know My ABSs PEDAC
+
+Problem
+=======
+There are 13 blocks, each with two letters on opposite sides.
+The placement of the letters is random.
+Each block may only be used once.
+For example, B and O are on opposite sides of the same block.
+  If B is used in a word, O may not be used, and B may not be used again.
+Given a word, determine if that word can be spelled with the given set of blocks.
+
+Examples
+========
+block_word?('BATCH') == true
+block_word?('BABE') == false
+
+Data Structure
+==============
+'word' will be a string.
+The set of blocks will be a hash called 'blocks'.
+  Each key will be a string of the letters on the block, separated by a colon. "B:O"
+  Each value will be a boolean: false is the block is unused, true if it is used.
+
+Algorithm
+=========
+Define the hash 'blocks'
+  The keys are the pairs of letters.
+  The values are set to false, since no blocks are used yet.
+Split the 'word' to be tested into an array of 'chars'
+Loop through 'chars' with #.each, initializing 'char'
+  Loop through 'blocks' with #.each, initializing |k, v|
+  if k.include? char
+    if v == true
+      return false
+    else
+      v = true
+    end
+  end
+  return true
+end  
