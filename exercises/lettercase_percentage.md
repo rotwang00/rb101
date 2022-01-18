@@ -17,7 +17,7 @@ The three-element hash, which will serve as the return value
 
 Algorithm
 =========
-Create hash `percentages` with elements lowercase, uppercase, neither set to `0`
+Create hash `counts` with elements lowercase, uppercase, neither set to `0`
 Run #each on string.chars with parameter `char`
   if (a..z).include? `char`
     lowercase += 1
@@ -26,5 +26,6 @@ Run #each on string.chars with parameter `char`
   else
     neither += 1
   end
-Return hash
+compute percentages
+create new hash `percentages`
 
