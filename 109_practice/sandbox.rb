@@ -1,7 +1,4 @@
-a = 'Bob'
-
-5.times do |x|
-  a = 'Bill'
+if true
+  number = 1
 end
-
-p a
+p number
