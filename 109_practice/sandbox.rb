@@ -1,4 +1,9 @@
-if true
-  number = 1
+def plus(x, y)
+  x = x + y
 end
-p number
+
+a = 3
+b = plus(a, 2)
+ 
+puts a
+puts b
