@@ -45,26 +45,40 @@ def scramble_words(string)
   alpha = words.map do |word|
     sorted_word = sort_word(word)
   end
+  alpha
 end
 
-sort_word(wrd)
-  PUNCTUATION = %w(- ' , .)
-  first = ""
-  
-
-
+def sort_word(wrd)
+  # PUNCTUATION = %w(- ' , .)
+  chars = wrd.chars
+  beginning = ""
+  ending = ""
+  loop do |_|
+    first = chars.shift
+    beginning << first
+    break if ('a'..'z').include? first
+  end
+  loop do |_|
+    last = chars.pop
+    ending = last + ending
+    break if ('a'..'z').include? last
+  end
+  chars = chars.sort
+  chars.unshift(beginning)
+  chars.push(ending)
+  answer = chars.join
+  p answer
 end
-
 
 p scramble_words('professionals') == 'paefilnoorsss'
-# p scramble_words('i') == 'i'
-# p scramble_words('') == ''
-# p scramble_words('me') == 'me'
-# p scramble_words('you') == 'you'
-# p scramble_words('card-carrying') == 'caac-dinrrryg'
-# p scramble_words("shan't") == "sahn't"
-# p scramble_words('-dcba') == '-dbca'
-# p scramble_words('dcba.') == 'dbca.'
-# p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's
-# nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul
-# neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+p scramble_words('i') == 'i'
+p scramble_words('') == ''
+p scramble_words('me') == 'me'
+p scramble_words('you') == 'you'
+p scramble_words('card-carrying') == 'caac-dinrrryg'
+p scramble_words("shan't") == "sahn't"
+p scramble_words('-dcba') == '-dbca'
+p scramble_words('dcba.') == 'dbca.'
+p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's
+nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul
+neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
