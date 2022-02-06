@@ -33,14 +33,19 @@ def expanded_form(number)
   answer = ""
   loop do
     digit = number_array[index]
-    next if digit == "0"
-    term = digit + " + " + ("0" * size)
+    if digit == "0"
+      index += 1
+      size -= 1
+      next
+    end
+    term = digit + ("0" * size)
     p term
     answer = answer + term
     size -= 1
     index += 1
     break if size == 0
   end
+  answer
 end
 
 p expanded_form(12)
