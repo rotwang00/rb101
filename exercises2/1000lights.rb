@@ -42,18 +42,19 @@ Start an infinite loop
   Increment counter
 =end
 
-def lights(n)
-  result = []
-  counter = 1
-  while true do
-    square = counter ** 2
-    if square <= n
-      result << square
-    else
-      return result
-    end
-    counter += 1
-  end
-end
+# def lights(n)
+#   result = []
+#   counter = 1
+#   while true do
+#     square = counter ** 2
+#     if square <= n
+#       result << square
+#     else
+#       return result
+#     end
+#     counter += 1
+#   end
+# end
 
-p lights(22)
+# p lights(22)
+
